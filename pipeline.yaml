@@ -18,12 +18,12 @@ spec:
         type: git
   steps:
     - name: npm-install
-      image: node:14
+      image: node:15.5.1-buster
       command:
         - /bin/bash
       args: ['-c', 'cd repo/$(params.pathContext) && npm install']
     - name: npm-lint
-      image: node:14
+      image: node:15.5.1-buster
       command:
         - /bin/bash
       args: ['-c', 'cd repo/$(params.pathContext) && npm $(params.action)']
@@ -104,7 +104,7 @@ spec:
         name: npm
       params:
         - name: pathContext
-          value: app
+          value: "."
         - name: action
           value: run lint
       resources:
@@ -116,7 +116,7 @@ spec:
         name: npm
       params:
         - name: pathContext
-          value: app
+          value: "."
         - name: action
           value: run test
       resources:
