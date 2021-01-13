@@ -14,7 +14,7 @@ spec:
       type: string
   resources:
     inputs:
-      - name: repo
+      - name: source
         type: git
   steps:
     - name: npm-install
@@ -50,7 +50,7 @@ spec:
   steps:
     - name: generate
       image: quay.io/openshift-pipeline/s2i
-      workingDir: /workspace/repo/app
+      workingDir: /workspace/repo
       command: ["s2i", "build", ".", "registry.access.redhat.com/ubi8/nodejs-12", "--as-dockerfile", "/gensource/Dockerfile.gen"]
       volumeMounts:
         - name: gensource
@@ -99,30 +99,30 @@ spec:
     - name: git-repo
       type: git
   tasks:
-    - name: lint
-      taskRef:
-        name: npm
-      params:
-        - name: pathContext
-          value: "."
-        - name: action
-          value: run lint
-      resources:
-        inputs:
-          - name: repo
-            resource: git-repo
-    - name: test
-      taskRef:
-        name: npm
-      params:
-        - name: pathContext
-          value: "."
-        - name: action
-          value: run test
-      resources:
-        inputs:
-          - name: repo
-            resource: git-repo
+    # - name: lint
+    #   taskRef:
+    #     name: npm
+    #   params:
+    #     - name: pathContext
+    #       value: .
+    #     - name: action
+    #       value: run lint
+    #   resources:
+    #     inputs:
+    #       - name: repo
+    #         resource: git-repo
+    # - name: test
+    #   taskRef:
+    #     name: npm
+    #   params:
+    #     - name: pathContext
+    #       value: .
+    #     - name: action
+    #       value: run test
+    #   resources:
+    #     inputs:
+    #       - name: repo
+    #         resource: git-repo
     - name: build-and-deploy
       params:
         - name: user
@@ -138,5 +138,5 @@ spec:
           - name: repo
             resource: git-repo
       runAfter:
-        - lint
-        - test
+        # - lint
+        # - test
