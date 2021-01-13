@@ -1,7 +1,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: npm
+  name: npm-operation
 spec:
   params:
     - name: pathContext
@@ -101,7 +101,7 @@ spec:
   tasks:
     # - name: lint
     #   taskRef:
-    #     name: npm
+    #     name: npm-operation
     #   params:
     #     - name: pathContext
     #       value: .
@@ -113,7 +113,7 @@ spec:
     #         resource: git-repo
     # - name: test
     #   taskRef:
-    #     name: npm
+    #     name: npm-operation
     #   params:
     #     - name: pathContext
     #       value: .
